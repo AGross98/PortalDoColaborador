@@ -1,0 +1,13 @@
+@base_url = https://localhost:7061/portalcolaborador
+
+### Criação de um novo funcionário
+POST {{base_url}}/jornada/cadastrar
+Content-Type: application/json
+
+{
+  "ponto": "2023-10-16T17:35:39",
+  "funcionarioId": 1
+}
+
+### Obtenção de todos os funcionários
+GET {{base_url}}/jornada/listar

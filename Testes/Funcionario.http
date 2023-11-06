@@ -1,0 +1,25 @@
+@base_url = https://localhost:7061/portalcolaborador
+
+### Criação de um novo funcionário
+POST {{base_url}}/funcionario/cadastrar
+Content-Type: application/json
+
+{
+  "nome": "Marcos Antonio",
+  "cpf": "123.456.789-10",
+  "status": 0
+}
+
+### Obtenção de todos os funcionários
+GET {{base_url}}/funcionario/listar
+
+### Editar um Funcionario
+
+PUT {{base_url}}/funcionario/atualizar/5
+
+{
+  "status": 1
+}
+
+### Deletar Funcionario
+DELETE {{base_url}}/funcionario/deletar/1
