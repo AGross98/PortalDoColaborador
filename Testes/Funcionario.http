@@ -13,6 +13,9 @@ Content-Type: application/json
 ### Obtenção de todos os funcionários
 GET {{base_url}}/funcionario/listar
 
+### Listar um funcionario
+GET {{base_url}}/funcionario/listar/7
+
 ### Editar um Funcionario
 
 PUT {{base_url}}/funcionario/atualizar/5
