@@ -35,7 +35,7 @@ public class FuncionarioController : ControllerBase
     [Route("listar/{id}")]
     public IActionResult ListarID([FromRoute] int id){
         try{
-            Funcionario funcionario = _context.Funcionarios.Find(id);
+            Funcionario funcionario = _context.Funcionarios.Find(id)!;
             return Ok(funcionario);
         }
         catch(Exception e){

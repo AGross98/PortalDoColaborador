@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortalColaborador.Data;
 
@@ -10,9 +11,10 @@ using PortalColaborador.Data;
 namespace PortalColaborador.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    partial class AppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20231118150112_criacaoDeUsuarios")]
+    partial class criacaoDeUsuarios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.21");
@@ -56,42 +58,7 @@ namespace PortalColaborador.Migrations
                     b.ToTable("jornadas");
                 });
 
-            modelBuilder.Entity("Usuario", b =>
-                {
-                    b.Property<int>("UsuarioId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("FuncionarioId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("senha")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("user")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UsuarioId");
-
-                    b.HasIndex("FuncionarioId");
-
-                    b.ToTable("usuarios");
-                });
-
             modelBuilder.Entity("PortalColaborador.Models.Jornada", b =>
-                {
-                    b.HasOne("PortalColaborador.Models.Funcionario", "Funcionario")
-                        .WithMany()
-                        .HasForeignKey("FuncionarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Funcionario");
-                });
-
-            modelBuilder.Entity("Usuario", b =>
                 {
                     b.HasOne("PortalColaborador.Models.Funcionario", "Funcionario")
                         .WithMany()

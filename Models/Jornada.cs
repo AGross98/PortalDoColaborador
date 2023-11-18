@@ -1,5 +1,3 @@
-using System.Data;
-
 namespace PortalColaborador.Models;
 
 public class Jornada

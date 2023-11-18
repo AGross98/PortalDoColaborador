@@ -12,4 +12,5 @@ public class AppDataContext : DbContext
     //Classes que vão se tornar tabelas no banco de dados
     public DbSet<Funcionario> Funcionarios { get; set; }
     public DbSet<Jornada> jornadas { get; set; }
+    public DbSet<Usuario> usuarios { get; set; }
 }

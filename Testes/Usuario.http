@@ -1,0 +1,25 @@
+@base_url = https://localhost:7061/portalcolaborador
+POST {{base_url}}/login/cadastrar
+Content-Type: application/json
+
+{
+  "user": "anderson",
+  "senha": "123456",
+  "Funcionario": {
+    "Cpf": "123.456.789-10"
+  }
+}
+
+### Obtenção de todos os Usuarios
+GET {{base_url}}/login/listar
+
+### Deletar um Usuario
+DELETE {{base_url}}/login/deletar/2
+
+### Editar usuario
+PUT {{base_url}}/login/atualizar/4  
+
+{
+    "user": "andersongross",
+    "senha": "123"
+}

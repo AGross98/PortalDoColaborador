@@ -5,8 +5,7 @@ POST {{base_url}}/jornada/cadastrar
 Content-Type: application/json
 
 {
-  "ponto": "2023-10-16T17:35:39",
-  "funcionarioId": 1
+  "funcionarioId": 6
 }
 
 ### Obtenção de todos os funcionários
