@@ -44,6 +44,19 @@ public class FuncionarioController : ControllerBase
 
     }
 
+    [HttpGet]
+    [Route("listar/{id}")]
+    public IActionResult ListarCpf([FromBody] int Cpf){
+        try{
+            Funcionario funcionario = _context.Funcionarios.Find(Cpf)!;
+            return Ok(funcionario);
+        }
+        catch(Exception e){
+            return BadRequest(e.Message);
+        }
+    }
+
+
     [HttpPost]
     [Route("cadastrar")]
     public IActionResult Cadastrar([FromBody] Funcionario funcionario)

@@ -12,6 +12,11 @@ Content-Type: application/json
 
 ### Obtenção de todos os funcionários
 GET {{base_url}}/funcionario/listar
+### Listar Funcionario por CPF
+GET {{base_url}}/funcionario/listar
+{
+  "cpf": "123.456.789-10"
+}
 
 ### Listar um funcionario
 GET {{base_url}}/funcionario/listar/7

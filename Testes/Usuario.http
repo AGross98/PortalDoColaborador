@@ -1,12 +1,14 @@
 @base_url = https://localhost:7061/portalcolaborador
+
+### cadastrar Usuario
 POST {{base_url}}/login/cadastrar
 Content-Type: application/json
 
 {
-  "user": "anderson",
-  "senha": "123456",
+  "user": "joao",
+  "senha": "teste",
   "Funcionario": {
-    "Cpf": "123.456.789-10"
+    "Cpf": "45612378910"
   }
 }
 
@@ -14,10 +16,10 @@ Content-Type: application/json
 GET {{base_url}}/login/listar
 
 ### Deletar um Usuario
-DELETE {{base_url}}/login/deletar/2
+DELETE {{base_url}}/login/deletar/
 
 ### Editar usuario
-PUT {{base_url}}/login/atualizar/4  
+PUT {{base_url}}/login/atualizar/8  
 
 {
     "user": "andersongross",
