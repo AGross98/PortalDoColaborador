@@ -6,5 +6,6 @@ public class Funcionario
     public String? Nome { get; set; }
     public String? Cpf { get; set; }
     public int Status { get; set; }
+    public int cargo { get; set; }
     
 }
