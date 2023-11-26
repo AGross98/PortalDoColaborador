@@ -1,21 +1,59 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PortalColaborador.Data;
+using PortalColaborador.Models;
+using System;
+using System.Linq;
 
-namespace PortalColaborador.Controllers;
-
-[ApiController]
-[Route("portalcolaborador/login")]
-
-public class LoginController : ControllerBase
+namespace PortalColaborador.Controllers
 {
-    private readonly AppDataContext _context;
-
-    public LoginController(AppDataContext context)
+    [ApiController]
+    [Route("portalcolaborador/login")]
+    public class LoginController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly AppDataContext _context;
 
-    [HttpGet]
+        public LoginController(AppDataContext context)
+        {
+            _context = context;
+        }
+
+[HttpPost]
+[Route("autenticar")]
+public IActionResult Autenticar([FromBody] Usuario usuario)
+{
+    try
+    {
+        var usuarioAutenticado = _context.usuarios
+            .Include(u => u.Funcionario)
+            .FirstOrDefault(u => u.user == usuario.user && u.senha == usuario.senha);
+
+        if (usuarioAutenticado != null)
+        {
+            // Verifica se o usuário é um gerente
+            if (usuarioAutenticado.Funcionario.cargo == 1)
+            {
+                // Autenticação bem-sucedida para gerente
+                return Ok(usuarioAutenticado); // Certifique-se de incluir informações do funcionário aqui
+            }
+            else
+            {
+                // Autenticação bem-sucedida para usuário
+                return Ok(usuarioAutenticado); // Certifique-se de incluir informações do funcionário aqui
+            }
+        }
+
+        // Autenticação falhou
+        return Unauthorized("Usuário ou senha incorretos");
+    }
+    catch (Exception e)
+    {
+        return BadRequest(new { error = e.Message });
+    }
+}
+
+
+        [HttpGet]
     [Route("listar")]
     public IActionResult Listar(){
         try
@@ -29,29 +67,38 @@ public class LoginController : ControllerBase
         }
     }
 
-    [HttpPost]
-    [Route("cadastrar")]
-    public IActionResult Cadastrar([FromBody] Usuario usuario)
+[HttpPost]
+[Route("cadastrar")]
+public IActionResult Cadastrar([FromBody] Usuario usuario)
+{
+    try
     {
-        try
+        // Verificar através do CPF do funcionário se existe um funcionário
+        var funcionarioExiste = _context.Funcionarios.SingleOrDefault(f => f.Cpf == usuario.Funcionario.Cpf);
+        
+        if(funcionarioExiste != null)
         {
-            //Verificar atravez do CPF do funcionario se existe um funcionario
-            var funcionarioExiste = _context.Funcionarios.SingleOrDefault(f => f.Cpf == usuario.Funcionario.Cpf);
-            //Se existir salvar o usuario no banco de dados.
-            if(funcionarioExiste != null){
-                usuario.FuncionarioId = funcionarioExiste.FuncionarioId;
-                usuario.Funcionario = funcionarioExiste;
-                _context.Add(usuario);
-                _context.SaveChanges();
-                return Ok(usuario + "Cadastrado com Susesso.");
-            }
-            return NotFound("Nenhum funcionario encontrado");
+            usuario.FuncionarioId = funcionarioExiste.FuncionarioId;
+            usuario.Funcionario = funcionarioExiste;
+            _context.Add(usuario);
+            _context.SaveChanges();
+
+            // Retorna uma resposta simples indicando que o cadastro foi bem-sucedido
+            return Ok(new { message = "Cadastro bem-sucedido" });
         }
-        catch (Exception e)
+        else
         {
-            return BadRequest(e.Message);
+            // Retorna uma resposta indicando que nenhum funcionário foi encontrado
+            return NotFound(new { error = "Nenhum funcionário encontrado" });
         }
     }
+    catch (Exception e)
+    {
+        // Retorna uma resposta indicando que ocorreu um erro durante o processamento
+        return BadRequest(new { error = e.Message });
+    }
+}
+
 
     [HttpPut]
     [Route("atualizar/{id}")]
@@ -97,5 +144,6 @@ public class LoginController : ControllerBase
         {
             return BadRequest(e.Message + "Erro inesperado");
         }
+    }
     }
 }
