@@ -45,7 +45,7 @@ public class FuncionarioController : ControllerBase
     }
 
     [HttpGet]
-    [Route("listar/{id}")]
+    [Route("listar/cpf/{id}")]
     public IActionResult ListarCpf([FromBody] int Cpf){
         try{
             Funcionario funcionario = _context.Funcionarios.Find(Cpf)!;
@@ -54,7 +54,7 @@ public class FuncionarioController : ControllerBase
         catch(Exception e){
             return BadRequest(e.Message);
         }
-    }
+    } 
 
 
     [HttpPost]
