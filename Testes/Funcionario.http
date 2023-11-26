@@ -22,7 +22,7 @@ GET {{base_url}}/funcionario/listar
 GET {{base_url}}/funcionario/listar/7
 
 ### Editar um Funcionario
-PUT {{base_url}}/funcionario/atualizar/5
+PATCH {{base_url}}/funcionario/atualizar/6
 
 {
   "status": 1

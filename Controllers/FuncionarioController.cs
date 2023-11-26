@@ -73,7 +73,7 @@ public class FuncionarioController : ControllerBase
         }
     }
 
-    [HttpPut]
+    [HttpPatch]
     [Route("atualizar/{id}")]
     public IActionResult Atualizar([FromRoute] int id, 
         [FromBody] Funcionario funcionario)
