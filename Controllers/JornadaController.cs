@@ -38,7 +38,7 @@ public class JornadaController : ControllerBase
         try
         {
             Funcionario? funcionario = _context.Funcionarios.Find(jornada.FuncionarioId);
-            if (funcionario == null || funcionario.Status != 0)
+            if (funcionario == null || funcionario.Status == 1)
             {
                 return BadRequest("Funcionario não encontrado ou inativo");
             }
